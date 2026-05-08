@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-eks
+  labels:
+    app: flask-eks
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-eks
+  template:
+    metadata:
+      labels:
+        app: flask-eks
+    spec:
+      containers:
+        - name: flask-eks
+          image: PLACEHOLDER
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
