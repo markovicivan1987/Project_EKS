@@ -26,7 +26,8 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   tags = {
-    Name = var.cluster_name
+    Name                                        = var.cluster_name
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
