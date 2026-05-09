@@ -28,6 +28,18 @@ Configure kubectl after apply:
 aws eks update-kubeconfig --region us-east-1 --name myapp-eks
 ```
 
+## Destroying
+
+**Important:** Before running `terraform destroy`, delete the Ingress first so the Load Balancer Controller removes the ALB. If you skip this, Terraform will fail with `DependencyViolation` on the subnets and VPC.
+
+```bash
+kubectl delete ingress flask-eks
+# wait ~1-2 minutes for the ALB to be removed
+terraform destroy
+```
+
+If you forgot and terraform destroy failed, manually delete the ALB and any `k8s-` prefixed security groups from the AWS console, then run `terraform destroy` again.
+
 ## App Repository
 
 Application code and CI/CD pipeline:
