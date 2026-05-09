@@ -38,7 +38,7 @@ kubectl delete ingress flask-eks
 terraform destroy
 ```
 
-If you forgot and terraform destroy failed, manually delete the ALB and any `k8s-` prefixed security groups from the AWS console, then run `terraform destroy` again.
+Deleting the Ingress also removes the ALB security groups created by the controller — both are cleaned up automatically. If you forgot and terraform destroy failed, manually delete the ALB and any `k8s-` prefixed security groups from the AWS console, then run `terraform destroy` again.
 
 ## App Repository
 
